@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+  <%- include('partias/nav'); -%>
+  
+    <div class="container my-4">
+       <form>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Fullname</label>
+        <input type="text" name="Fullname" class="form-control" required>
+       
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">College-Name</label>
+        <input type="text" name="collegename"class="form-control" required>
+       
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" name="email" class="form-control" required>
+      <div id="validationServerUsernameFeedback" style="color: red;font-size: 13px;">
+        
+      </div>
+       
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" name="password" class="form-control" id="exampleInputPassword1" required>
+        <div id="validationServerUernameFeedback"style="color: red;font-size: 13px;" >
+      
+      </div>
+       
+      </div>
+      
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  
+    </div>
+    
+    
+</body>
+<script>
+  let form=document.querySelector('form');
+  
+  form.addEventListener('submit',async(e)=>{
+    e.preventDefault()
+    const Fullname=form.Fullname.value;
+    const collegename=form.collegename.value;
+    const email=form.email.value
+    const password=form.password.value
+    try {
+      const response = await fetch('/signin', {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+   
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify({Fullname,collegename,email,password}) // body data type must match "Content-Type" header
+
+  });
+  form.Fullname.value=''
+  form.collegename.value=''
+  form.email.value=''
+  form.password.value=''
+  let res=await response.json()
+ if(res.user){
+  location.assign('/')
+ }
+ else{
+   console.log(res)
+  document.getElementById('validationServerUsernameFeedback').innerHTML=res.email
+  document.getElementById('validationServerUernameFeedback').innerHTML=res.password
+   
+ }
+ 
+  // 
+//  console.log(response.JSON())
+ 
+ 
+    
+    } catch (error) {
+      return error
+    }
+   
+  })
+ 
+</script>
+</html>

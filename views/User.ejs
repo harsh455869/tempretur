@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('partias/nav'); -%>
+    <div class="container my-4" style="max-width: 500;">
+        <h1 style="text-align: center;">Hi <%= user.Fullname %></h1>
+        <div class="container" style="max-width: 400;">
+        <table class="table">
+            
+            <tbody>
+                <tr>
+                    <td>Fullname</td>
+                    <td> <%= user.Fullname %></td></tr>
+                <tr>
+                    <tr>
+                        <td>College-Name</td>
+                        <td> <%= user.collegename %></td></tr>
+              <td>email
+              </td>
+              <td> <%= user.email %></td></tr>
+            </tbody>
+
+          </table>
+        </div>
+        <center><h1>history</h1></center>
+        <div class="container">
+        
+           
+            <% kalu.forEach(error => { %> 
+                
+            
+                
+                    <div class="row row-cols-2">
+                      <div class="col"><%= error.place %></div>
+                      <div class="col"><%= error.time %></div>
+                     
+                    </div>
+                  
+                  
+                <% }) %>
+            
+        
+    </div>
+       
+          
+       
+    </div>
+</body>
+<script>
+    
+</script>
+</html>

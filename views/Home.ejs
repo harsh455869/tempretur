@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+
+  <%- include('partias/nav'); -%>
+  <div class="alert alert-primary"  style="display: none;"role="alert" >
+    
+</div>
+  <div class="container-md my-3">
+   <h2 style="text-align: center;"> Simple Wether App</h2>
+   <div class=" d-flex justify-content-center">
+   <div class="d-flex  flex-column bd-highlight mb-3 ">
+    <form >
+    <input name="place"type="text" style="border-top: 0px ;border-bottom: 2px solid black;border-right:0px;border-left: 0px ;max-width: 500px;"  class="form-control my-3" placeholder="Enter Place name" aria-label="Username" aria-describedby="addon-wrapping">
+    <br><button onclick="handlesub()" type="button" style="max-width:300px;" class="btn btn-success" type="submit">Find</button>
+  </form>
+    <div class="card my-3" style="width: 18rem;">
+     <div id="img"></div>
+      <div class="card-body">
+        <h2 class="card-title"></h2>
+        <h6 id="date"></h6>
+        <h6 id="temp"></h6>
+        <h1 class="card-text" ></h1>
+       
+      </div>
+    </div>
+  </div>
+  
+  <br>
+  
+</div>
+
+  
+  </div>
+    
+</body>
+<script>
+   
+   let y=document.getElementById("date");
+let ye=['JAN','FEB','MAR','APR','MAY','JUN','JLY','AUG','SPT','OCT','NOV','DEC'];
+let day=['SUN','MON','TUE','WED','THUR','FRI','SAT'];
+  let time;
+
+setInterval(() => {
+  let da=new Date();
+  // time=`'+da.getHours():da.getHours()}:${da.getMinutes()<9?'0'+da.getMinutes():da.getMinutes()}`
+    
+y.innerHTML=    `Date: ${da.getDate()} ${ye[da.getMonth()]} ${da.getFullYear()} | ${
+
+day[da.getDay()]}  ${(da.getHours()<9)?'0'+da.getHours():da.getHours()}:${da.getMinutes()<9?'0'+da.getMinutes():da.getMinutes()}`
+
+}, 100);
+
+  let yp=1;
+  
+    
+    let d=document.querySelector('input')
+    
+  
+
+
+    const handlesub=async ()=>{
+      yp++;
+
+      let url=`https://api.openweathermap.org/data/2.5/weather?q=${(d.value)?d.value:'pune'}&appid=a23bf58dc131aedc9014a01b459e8018`
+  
+  try {
+    let data=await fetch(url);
+  let y=await data.json();
+
+  // document.querySelector('.card-title').innerHTML=d.value;
+  console.log(y);
+  let temp_min=y.main.temp_min;
+  document.getElementById('temp').innerHTML=`Min-Temp:${Math.round(y.main.temp_min-273)}<sup>o</sup>C | Max-Temp:${Math.round(y.main.temp_max-273)}<sup>o</sup>C`
+  document.querySelector('.card-title').innerHTML=`${y.name}<sup style="background-color: rgb(238, 40, 73);font-size: 10px;border-radius: 3px;padding: 2px;">${y.sys.country}</sup>`
+  let p=(y.weather.main);
+  document.querySelector('.card-text').innerHTML=`${Math.round(y.main.temp_min-273)}<sup>o</sup>C`
+  if(p=='Smoke'){
+    document.getElementById('img').innerHTML=`<div style="text-align: center;"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-cloud-haze-fill" viewBox="0 0 16 16">
+<path d="M4 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 2a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm2 2a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM13.405 4.027a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 10H13a3 3 0 0 0 .405-5.973z"/>
+</svg></div>`
+  }
+  else if(p=="Clear"){
+  document.getElementById('img').innerHTML=`<div style="text-align: center;"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16">
+<path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+</svg></div>`
+  
+}
+else if(p=="Clouds"){
+document.getElementById('img').innerHTML=`<div style="text-align: center;"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-cloud-drizzle" viewBox="0 0 16 16">
+<path d="M4.158 12.025a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm-3.5 1.5a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 1 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm.747-8.498a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 11H13a3 3 0 0 0 .405-5.973zM8.5 2a4 4 0 0 1 3.976 3.555.5.5 0 0 0 .5.445H13a2 2 0 0 1 0 4H3.5a2.5 2.5 0 1 1 .605-4.926.5.5 0 0 0 .596-.329A4.002 4.002 0 0 1 8.5 2z"/>
+</svg> </div>`
+
+  
+}
+else{
+document.getElementById('img').innerHTML=`<div style="text-align: center;"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-brightness-alt-high" viewBox="0 0 16 16">
+<path d="M8 3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 3zm8 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zm-13.5.5a.5.5 0 0 0 0-1h-2a.5.5 0 0 0 0 1h2zm11.157-6.157a.5.5 0 0 1 0 .707l-1.414 1.414a.5.5 0 1 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm-9.9 2.121a.5.5 0 0 0 .707-.707L3.05 5.343a.5.5 0 1 0-.707.707l1.414 1.414zM8 7a4 4 0 0 0-4 4 .5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5 4 4 0 0 0-4-4zm0 1a3 3 0 0 1 2.959 2.5H5.04A3 3 0 0 1 8 8z"/>
+</svg> </div>`
+}
+const place=(d.value);
+
+  
+// let time= `Date: ${da.getDate()} ${ye[da.getMonth()]} ${da.getFullYear()} | ${
+
+// day[da.getDay()]}  ${(da.getHours()<9)?'0'+da.getHours():da.getHours()}:${da.getMinutes()<9?'0'+da.getMinutes():da.getMinutes()}`;
+
+
+const response = await fetch('/history', {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+   
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: JSON.stringify({place:place})
+  })
+
+
+  } catch (error) {
+    console.log(error)
+    document.querySelector('.alert').innerHTML=y;
+    document.querySelector('.alert').style.display="block"
+    setTimeout(() => {
+      document.querySelector('.alert').style.display="none"
+    }, 1000);
+    
+  }
+  
+  d.value=""
+}
+
+    
+  
+   
+    
+
+
+</script>
+</html>

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Hello, world!</title>
+  </head>
+  <body>
+  
+    
+    
+ <nav class="navbar navbar-expand-lg navbar-light bg-light py-2">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <a class="navbar-brand" href="#">Navbar</a>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" id="home" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " id="help" href="/Help">Help </a>
+              </li>
+             
+            </ul>
+            
+            
+              
+              <% if (user) { %>
+                
+                <a href="/User" class="btn mx-2"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg>
+                <%= user.email %>
+              </a> 
+                <!-- <a href="/premium">Premium<sup style="background-color: red;">new</sup></a> -->
+                <a href="/Logout"><button type="button" class="btn btn-danger mx-2"  >LogOut</button></a> 
+                <%} else { %>
+                  <a href="/SignIn"><button type="button" class="btn btn-danger mx-2" id="signin" >SignIn</button></a>
+                  <a href="/Login"><button type="button" class="btn btn-danger" id="login">LogIn</button></a> 
+                <% } %>
+                
+            
+            
+              
+             
+           
+            
+          
+          </div>
+        </div>
+        
+      </nav>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+  </body>
+  <script>
+    let usrl='<%= active %>'
+    if(usrl==='home'&& usrl!=null){
+      // console.log('thanks')
+      document.getElementById('home').classList.add('active')
+      document.getElementById('home').style.color="blue"
+      document.getElementById('home').style.fontWeight="700"
+
+
+    }
+    else if(usrl==='help'&& usrl!=null){
+      document.getElementById('help').classList.add('active')
+      document.getElementById('help').style.color="blue"
+      document.getElementById('help').style.fontWeight="bold"
+
+
+
+    }
+    else if(usrl==='signin'){
+      document.getElementById('signin').classList.remove('btn-danger')
+
+      document.getElementById('signin').classList.add('btn-primary')
+
+    }
+    else if(usrl==='login'){
+      document.getElementById('login').classList.remove('btn-danger')
+
+      document.getElementById('login').classList.add('btn-primary')
+
+    }
+  </script>
+</html>
