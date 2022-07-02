@@ -69,7 +69,7 @@ const { resourceUsage } = require('process');
 const { error, time } = require('console');
 const { runInNewContext } = require('vm');
 // const { default: isEmail } = require('validator/lib/isEmail');
-mongoose.connect('mongodb://localhost:27017/patel').then(()=>{
+mongoose.connect('mongodb+srv://harsh706974:hPxCqTeG7zNjDOtn@cluster0.un92s.mongodb.net/?retryWrites=true&w=majority').then(()=>{
   console.log("con sucess");
 })
 const hendleerror= (err)=>{
