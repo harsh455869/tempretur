@@ -239,7 +239,7 @@ let day=['SUN','MON','TUE','WED','THUR','FRI','SAT'];
 // let o=[1,2,3];
 let da=new Date()
 y.push({place:req.body.place,time:`Date: ${da.getDate()} ${ye[da.getMonth()]} ${da.getFullYear()} | ${
-day[da.getDay()]}  ${(da.getHours()<9)?'0'+da.getHours():da.getHours()}:${da.getMinutes()<9?'0'+da.getMinutes():da.getMinutes()}`})
+day[da.getDay()]}  ${(da.getHours())}:${da.getMinutes()}`})
     let dat=await Patel.findByIdAndUpdate(decoded.id,{history:y})
     
 // console.log(y);
