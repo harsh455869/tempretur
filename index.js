@@ -123,12 +123,22 @@ app.get('/Logout',(req,res)=>{
   res.cookie('jwt','',{maxAge:1})
 res.redirect("/")
 })
+
     // v.save()
 app.set('view engine','ejs');
 // app.set('views',path.join(__dirname,'/public'))
 // hbs.registerPartials(path.join(__dirname,'/partias'))
 app.get('/',(req,res)=>{
   res.render('Home',{active:'home'})
+})
+app.get('/User',checkuser,async(req,res)=>{
+// res.render('User')
+const token=req.cookies.jwt
+  const decoded = jwt.verify(token, "patel harsh secret");
+  const dat=await Patel.findById({_id:decoded.id});
+  
+  res.render('User',{kalu:dat.history})
+
 })
 app.get('/Help',(req,res)=>{
   res.render('Help',{active:'help'})
@@ -208,15 +218,7 @@ else{
   
  
 })
-app.get('/User',checkuser,async(req,res)=>{
-// res.render('User')
-const token=req.cookies.jwt
-  const decoded = jwt.verify(token, "patel harsh secret");
-  const dat=await Patel.findById({_id:decoded.id});
-  
-  res.render('User',{kalu:dat.history})
 
-})
 
 
 // app.post('/')
